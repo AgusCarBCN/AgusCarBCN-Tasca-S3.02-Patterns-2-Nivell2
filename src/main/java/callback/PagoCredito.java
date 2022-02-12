@@ -1,11 +1,19 @@
 package callback;
 
-public class PagoCredito implements MetodoPago {
+public class PagoCredito  {
 
-	@Override
-	public void pago() {
-		System.out.println("Has pagado con targeta de credito");
+	private MetodoPago pago;
+	private boolean pagar;
+	public PagoCredito(MetodoPago pago) {
+		this.pago=pago;
 
+	}
+	public void procesaPago() {
+		pagar=true;
+		if(pagar) {
+			System.out.println("pago con targeta de credito");
+			pago.pagoAEfectuar();
+		}
 	}
 
 }

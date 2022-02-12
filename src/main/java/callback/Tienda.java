@@ -15,9 +15,9 @@ import java.util.Scanner;
 public class Tienda {
 
 	public static void main(String[] args) {
-		/*Se crea una variable de referencia de tipo MetodoPago.Una variable de referencia
-		de interface puede referirse a cualquier objeto que implemente la interface*/
-		MetodoPago pago;
+		/*Un Callback es una referencia a una acción ejecutable
+		 que es pasada como un argumento a otra función*/
+		PasarelaDePago pasarela=new PasarelaDePago();
 		Scanner enter = new Scanner(System.in);
 		boolean exit = false;
 		byte opcion;
@@ -31,17 +31,17 @@ public class Tienda {
 			opcion = enter.nextByte();
 			// opcion =readOptionMenu();
 			switch (opcion) {
-			case 1:
-				pago = new Paypal();
-				pasarelaDePago(pago);
+			case 1:				
+				Paypal paypal= new Paypal(pasarela);
+				paypal.procesaPago();
 				break;
 			case 2:
-				pago = new PagoCredito();
-				pasarelaDePago(pago);
+				PagoCredito credito = new PagoCredito(pasarela);
+				credito.procesaPago();
 				break;
 			case 3:
-				pago = new DebitoCuenta();
-				pasarelaDePago(pago);
+				DebitoCuenta debito = new DebitoCuenta(pasarela);
+				debito.procesaPago();
 				break;
 			case 4:
 				System.out.println("Has salido de la tienda");
@@ -56,12 +56,5 @@ public class Tienda {
 		enter.close();
 	}
 
-	/**
-	 * El método pasarelaDePago invocara al metodo pago sin saber la forma de pago.
-	 * 	 
-	 * @param metodo referencia de tipo MetodoPago
-	 */
-	public static void pasarelaDePago(MetodoPago metodo) {
-		metodo.pago();
-	}
+	
 }
